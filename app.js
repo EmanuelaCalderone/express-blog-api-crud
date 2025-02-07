@@ -10,7 +10,7 @@ const port = 3000
 //importo il router dei post
 const postsRouter = require('./routers/posts');
 
-//uso il middleware per parsare le richieste in JSON
+//uso il middleware per parsare le richieste in JSON (body-parser)
 app.use(express.json());
 
 //imposto la cartella per le img (i file statici)

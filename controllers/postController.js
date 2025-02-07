@@ -8,7 +8,7 @@ const posts = require('../data/posts');
 function index(req, res) {
     //res.send('Mostro tutti i post');
 
-    //inizializzo il psot filtrato associandolo a quello originale
+    //inizializzo il post filtrato associandolo a quello originale
     let filteredPosts = posts;
 
     if (req.query.tags) {
@@ -49,7 +49,32 @@ function show(req, res) {
 
 //funzione store
 function store(req, res) {
-    res.send('Creazione nuovo post');
+    //res.send('Creazione nuovo post');
+
+    //creo nuovo id incrementando di 1 l'ultimo presente
+    const ultimoPost = posts[posts.length - 1];
+    const idUltimoPost = ultimoPost.id;
+    const newId = idUltimoPost + 1;
+
+    //creo nuovo oggetto post
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags,
+    }
+
+    //pusho il nuovo oggetto nell'array preesistente
+    posts.push(newPost);
+
+    //controllo in console
+    console.log(posts);
+    
+    //restituisco lo status e il nuovo post
+    res.status(201);
+    res.json(newPost);
+
 }
 
 //funzione update
