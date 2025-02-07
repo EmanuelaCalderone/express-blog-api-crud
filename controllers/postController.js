@@ -79,8 +79,40 @@ function store(req, res) {
 
 //funzione update
 function update(req, res) {
-    res.send(`Modifica totale del post con ID: ${req.params.id}`);
+    //res.send(`Modifica totale del post con ID: ${req.params.id}`);
+
+    //recupero l'id dall'URL e lo parso in numero
+    const id = parseInt(req.params.id);
+
+    //cerco il post tramite l'ide
+    const post = posts.find(post => post.id === id);
+
+    //controllo logica
+    if (!post) {
+
+        //ritorno stato di errore
+        res.status(404);
+
+        //ritorno messaggio di errore in json
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
+    }
+
+    //modifico i dati del post tovato
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
+    console.log(posts);
+
+    //ritorno l'oggetto modificato
+    res.json(post);
 }
+
+
 
 //funzione modify
 function modify(req, res) {
