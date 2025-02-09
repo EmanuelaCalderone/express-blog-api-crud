@@ -84,7 +84,7 @@ function update(req, res) {
     //recupero l'id dall'URL e lo parso in numero
     const id = parseInt(req.params.id);
 
-    //cerco il post tramite l'ide
+    //cerco il post tramite l'id
     const post = posts.find(post => post.id === id);
 
     //controllo logica
@@ -112,21 +112,51 @@ function update(req, res) {
     res.json(post);
 }
 
-
-
 //funzione modify
 function modify(req, res) {
-    res.send(`Modifica parziale del post con ID: ${req.params.id}`);
+    //res.send(`Modifica parziale del post con ID: ${req.params.id}`);
+
+    //recupero l'id dall'URL e lo parso in numero
+    const id = parseInt(req.params.id);
+
+    //cerco il post tramite l'id
+    const post = posts.find(post => post.id === id);
+
+    //controllo logica
+    if (!post) {
+
+        //ritorno lo stato di errore 404
+        res.status(404);
+        //ritorno messaggio di errore in formato JSON
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
+    }
+
+    //altrimenti modifico i dati del post trovato (uso operatore ternario; versione compatta di if-else)
+
+    //se req.body.id è presente, lo assegno a post.id dandogli il valore di req.body.id, altrimenti non cambio niente
+    req.body.id ? post.id = req.body.id : post.id = post.id;
+
+    req.body.title ? post.title = req.body.title : post.title = post.title;
+    req.body.content ? post.content = req.body.content : post.content = post.content;
+    req.body.image ? post.image = req.body.image : post.image = post.image;
+    req.body.tags ? post.tags = req.body.tags : post.tags = post.tags;
+
+    //ritorno il post modificato in formato JSON
+    res.json(post);
+
 }
 
 //funzione destroy per eliminare un singolo post
 function destroy(req, res) {
     //res.send(`Rimozione post con ID: ${req.params.id}`);
 
-    //estraggo l'id dal parametro della rotta e lo parso in numero
+    //recupero l'id dal parametro della rotta e lo parso in numero
     const postId = parseInt(req.params.id);
 
-    //cerco il post per indice il post da eliminare
+    //cerco il post da eliminare per indice
     const post = posts.find(post => post.id === postId);
 
     //bonus
@@ -143,7 +173,7 @@ function destroy(req, res) {
         });
     }
 
-    //rimuovo il post eliminato dalla lista
+    //rimuovo dalla lista il post eliminato
     posts.splice(posts.indexOf(post), 1);
 
     //stampo in console la lista aggiornata senza il file eliminato

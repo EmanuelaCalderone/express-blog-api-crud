@@ -9,22 +9,22 @@ const postController = require('../controllers/postController');
 
 // rotte di CRUD dei post
 
-// index
+// index = restituisce tutti i post
 router.get('/', postController.index);
 
-// show
+// show = restituisce un singolo post in base all'id
 router.get('/:id', postController.show);
 
-//store
+//store = crea un nuovo post
 router.post('/', postController.store);
 
-// update
+// update = aggiorna un post esistente
 router.put('/:id', postController.update);
 
-// modify
+// modify = modifica parzialmente un post
 router.patch('/:id', postController.modify);
     
-// destroy
+// destroy = elimina un post
 router.delete('/:id', postController.destroy);
 
 
