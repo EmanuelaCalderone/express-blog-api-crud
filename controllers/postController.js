@@ -8,6 +8,12 @@ const posts = require('../data/posts');
 function index(req, res) {
     //res.send('Mostro tutti i post');
 
+    //simulazione per gestione errore con creazione variabile non definita
+    provaErrore;
+
+    //simulazione per gestione errore con throw new Error ("Prova errore")
+    //throw new Error("Prova errore");
+
     //inizializzo il post filtrato associandolo a quello originale
     let filteredPosts = posts;
 
