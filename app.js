@@ -30,11 +30,11 @@ app.get('/', (req, res) => {
 //utilizzo il router per gestiren le rotte in /posts
 app.use("/posts", postsRouter)
 
-//avvio il middleware per la gestione degli errori
-app.use(errorHandler);
-
 //avvio il middleware per le rotte non trovate
 app.use(notFound);
+
+//avvio il middleware per la gestione degli errori
+app.use(errorHandler);
 
 //avvio del server sulla porta specificata
 app.listen(port, () => {
