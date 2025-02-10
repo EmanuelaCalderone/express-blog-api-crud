@@ -10,6 +10,9 @@ const port = 3000
 //importo il router dei post
 const postsRouter = require('./routers/posts');
 
+//importo il middleware per le rotte non trovate
+const notFound = require('./middlewares/routeNotFound');
+
 //uso il middleware per parsare le richieste in JSON (body-parser)
 app.use(express.json());
 
@@ -23,6 +26,9 @@ app.get('/', (req, res) => {
 
 //utilizzo il router per gestiren le rotte in /posts
 app.use("/posts", postsRouter)
+
+//importo il middleware per le rotte non trovate
+app.use(notFound);
 
 //avvio del server sulla porta specificata
 app.listen(port, () => {
